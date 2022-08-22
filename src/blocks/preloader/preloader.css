@@ -1,0 +1,8 @@
+.preloader {
+  width: 54px;
+  height: 54px;
+  margin: 50px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}

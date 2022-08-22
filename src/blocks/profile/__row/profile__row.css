@@ -1,0 +1,8 @@
+.profile__row {
+  width: 100%;
+  height: 46px;
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  align-items: center;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.9);
+}

@@ -1,0 +1,6 @@
+.card-list__card-top-part {
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

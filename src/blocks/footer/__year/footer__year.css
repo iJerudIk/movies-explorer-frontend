@@ -1,0 +1,17 @@
+.footer__year {
+  margin: 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+@media (max-width: 320px) {
+  .footer__year {
+    font-size: 12px;
+    line-height: 15px;
+    color: #A0A0A0;
+    text-align: center;
+  }
+}

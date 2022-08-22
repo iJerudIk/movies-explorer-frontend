@@ -1,0 +1,18 @@
+.footer__project-title {
+  margin: 79px 0 20px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #A0A0A0;
+  text-align: center;
+}
+
+@media (max-width: 320px) {
+  .footer__project-title {
+    margin: 79px 0 21px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

@@ -1,0 +1,14 @@
+.about-me__link {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000;
+  text-decoration: none;
+  transition: 0.35s ease-in opacity;
+}
+
+.about-me__link:hover {
+  opacity: 0.75;
+}

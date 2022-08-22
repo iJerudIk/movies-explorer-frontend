@@ -1,0 +1,16 @@
+.technologies {
+  padding: 100px 70px;
+  background: #F5F5F5;
+}
+
+@media (max-width: 768px) {
+  .technologies {
+    padding: 90px 50px;
+  }
+}
+
+@media (max-width: 320px) {
+  .technologies {
+    padding: 70px 18px;
+  }
+}

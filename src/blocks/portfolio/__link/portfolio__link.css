@@ -1,0 +1,37 @@
+.portfolio__link {
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid #E8E8E8;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -0.04em;
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.35s ease-in opacity;
+}
+.portfolio__link:hover {
+  opacity: 0.75;
+}
+
+.portfolio__link:nth-child(1) {
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .portfolio__link {
+    font-size: 24px; /* картинка вылезает */
+  }
+}
+
+@media (max-width: 320px) {
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}

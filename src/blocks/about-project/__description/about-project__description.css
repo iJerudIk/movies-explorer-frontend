@@ -1,0 +1,21 @@
+.about-project__description {
+  margin-bottom: 110px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .about-project__description {
+    margin-bottom: 93px;
+    grid-gap: 30px;
+  }
+}
+
+@media (max-width: 320px) {
+  .about-project__description {
+    grid-template-columns: 1fr;
+    margin-bottom: 60px;
+    grid-gap: 56px;
+  }
+}

@@ -1,0 +1,15 @@
+.navigation__link {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navigation__link:nth-last-child(3) {
+  margin-bottom: 30px;
+}

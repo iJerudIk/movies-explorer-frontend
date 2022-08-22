@@ -1,0 +1,5 @@
+.navigation__link_selected {
+  margin-bottom: -5px;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #000;
+}

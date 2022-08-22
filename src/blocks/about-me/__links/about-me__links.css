@@ -1,0 +1,10 @@
+.about-me__links {
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 320px) {
+  .abou-me__links {
+    gap: 26px;
+  }
+}

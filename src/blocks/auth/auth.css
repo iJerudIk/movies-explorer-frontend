@@ -1,0 +1,10 @@
+.auth {
+  min-height: 100vh;
+  padding: 70px;
+}
+
+@media (max-width: 768px) {
+  .auth {
+    padding: 30px;
+  }
+}

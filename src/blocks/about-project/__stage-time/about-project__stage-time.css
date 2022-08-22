@@ -1,0 +1,19 @@
+.about-project__stage-time {
+  margin: 0;
+  padding: 9px 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  background: #F2F2F2;
+}
+
+@media (max-width: 320px) {
+  .about-project__stage-time {
+    padding: 11px 0;
+    font-size: 11px;
+    line-height: 13px;
+  }
+}

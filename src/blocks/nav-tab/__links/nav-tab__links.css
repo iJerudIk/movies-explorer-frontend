@@ -1,0 +1,14 @@
+.nav-tab__links {
+  padding: 0 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 320px) {
+  .nav-tab__links {
+    padding: 0 6px;
+    gap: 6px;
+  }
+}

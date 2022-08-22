@@ -1,0 +1,13 @@
+.nav-tab__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 30px;
+  background: #F5F5F5;
+  border-radius: 0 0 10px 10px;
+}
+
+@media (max-width: 320px) {
+  .nav-tab__content {
+    padding-bottom: 17px;
+  }
+}

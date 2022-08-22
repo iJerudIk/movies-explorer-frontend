@@ -1,0 +1,22 @@
+.not-found__status {
+  margin: 0 0 5px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 169px;
+}
+
+@media (max-width: 768px) {
+  .not-found__status {
+    font-size: 135px;
+  }
+}
+
+@media (max-width: 320px) {
+  .not-found__status {
+    margin-bottom: 10px;
+    font-size: 80px;
+    line-height: 97px;
+  }
+}

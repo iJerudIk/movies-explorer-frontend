@@ -1,0 +1,27 @@
+.banner__title {
+  width: 95%;
+  max-width: 730px;
+  margin: 0 auto;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .banner__title {
+    max-width: 680px;
+    font-size: 40px;
+    line-height: 52px;
+  }
+}
+
+@media (max-width: 320px) {
+  .banner__title {
+    font-size: 29px;
+    line-height: 37px;
+  }
+}

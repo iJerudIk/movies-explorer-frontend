@@ -1,0 +1,8 @@
+.search-form__checkbox-input {
+  width: 36px;
+  height: 20px;
+  position: relative;
+  background-color: #A0A0A0;
+  border-radius: 10px;
+  transition: 0.35s ease-in background-color;
+}

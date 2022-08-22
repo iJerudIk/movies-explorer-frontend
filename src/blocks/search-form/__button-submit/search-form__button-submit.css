@@ -1,0 +1,16 @@
+.search-form__button-submit {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 50%;
+  background-color: #000;
+  cursor: pointer;
+  transition: 0.35s ease-in background-color;
+}
+
+.search-form__button-submit:hover {
+  background-color: #303030;
+}
