@@ -32,16 +32,16 @@ function Card(props){
         {
           props.isSavedMovies ?
             (
-              <div className="card-list__card-mark" onClick={handleCardDelete}><img src={cross} alt="крестик" /></div>
+              <button className="card-list__card-mark" onClick={handleCardDelete}><img src={cross} alt="крестик" /></button>
             ) :
             (
-              <div className={`card-list__card-mark ${isLiked || "card-list__card-mark_inactive"}`} onClick={onMarkClick}>
+              <button className={`card-list__card-mark ${isLiked || "card-list__card-mark_inactive"}`} onClick={onMarkClick}>
                 <img src={isLiked ? markActive : markInactive} alt="закладка" />
-              </div>
+              </button>
             )
         }
       </div>
-      <img className="card-list__card-image" src={props.card.image} alt="постер фильма" />
+      <div className="card-list__card-image" style={{backgroundImage: `url(${props.card.image})`}}></div>
     </div>
   )
 }

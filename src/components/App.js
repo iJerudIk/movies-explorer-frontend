@@ -74,55 +74,57 @@ function App() {
       {!needToShowHeader || ( <Header loggedIn={loggedIn} onMenuClick={openMenu}></Header> )}
       {!needToShowHeader || ( <Navigation isOpen={isMenuOpen} onCrossClick={closeMenu}></Navigation> )}
 
-      <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
+      <main>
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
 
-        <Route exact path="/movies">
-          <ProtectedRoute
-            loggedIn={loggedIn}
-            onMoreButton={handleMoreButton}
-            onCardLike={handleCardLike}
-            onSubmitSearchForm={handleSubmitSearchForm}
-            cards={allCards}
-            component={Movies}
-          />
-        </Route>
+          <Route exact path="/movies">
+            <ProtectedRoute
+              loggedIn={loggedIn}
+              onMoreButton={handleMoreButton}
+              onCardLike={handleCardLike}
+              onSubmitSearchForm={handleSubmitSearchForm}
+              cards={allCards}
+              component={Movies}
+            />
+          </Route>
 
-        <Route exact path="/saved-movies">
-          <ProtectedRoute
-            loggedIn={loggedIn}
-            onCardDelete={handleCardDelete}
-            onSubmitSearchForm={handleSubmitSearchForm}
-            cards={myCards}
-            component={SavedMovies}
-          />
-        </Route>
+          <Route exact path="/saved-movies">
+            <ProtectedRoute
+              loggedIn={loggedIn}
+              onCardDelete={handleCardDelete}
+              onSubmitSearchForm={handleSubmitSearchForm}
+              cards={myCards}
+              component={SavedMovies}
+            />
+          </Route>
 
-        <Route exact path="/profile">
-          <ProtectedRoute
-            loggedIn={loggedIn}
-            onSubmitEdition={handleSubmitEditProfile}
-            onLogout={handleLogout}
-            component={Profile}
-          />
-        </Route>
+          <Route exact path="/profile">
+            <ProtectedRoute
+              loggedIn={loggedIn}
+              onSubmitEdition={handleSubmitEditProfile}
+              onLogout={handleLogout}
+              component={Profile}
+            />
+          </Route>
 
-        <Route exact path="/signin">
-          {loggedIn ? ( <Redirect to="/" /> ) : ( <Login onLogin={handleLogin} /> )}
-        </Route>
+          <Route exact path="/signin">
+            {loggedIn ? ( <Redirect to="/" /> ) : ( <Login onLogin={handleLogin} /> )}
+          </Route>
 
-        <Route exact path="/signup">
-          {loggedIn ? ( <Redirect to="/" /> ) : ( <Register onRegister={handleRegister} /> )}
-        </Route>
+          <Route exact path="/signup">
+            {loggedIn ? ( <Redirect to="/" /> ) : ( <Register onRegister={handleRegister} /> )}
+          </Route>
 
-        <Route path="/">
-          <NotFound />
-        </Route>
-      </Switch>
+          <Route path="/">
+            <NotFound />
+          </Route>
+        </Switch>
 
-      {true || ( <Preloader /> )}
+        {true || ( <Preloader /> )}
+      </main>
 
       {!needToShowFooter || ( <Footer></Footer> )}
     </div>

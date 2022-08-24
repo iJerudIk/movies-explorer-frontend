@@ -1,14 +1,18 @@
 .nav-tab__links {
+  max-width: 328px;
+  margin: 0 auto;
   padding: 0 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
 }
 
 @media (max-width: 320px) {
   .nav-tab__links {
     padding: 0 6px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 6px;
   }
 }

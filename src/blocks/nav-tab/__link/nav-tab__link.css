@@ -1,5 +1,5 @@
 .nav-tab__link {
-  width: 96px;
+  max-width: 96px;
   padding: 10px 0;
   background-color: #E8E8E8;
   border-radius: 10px;

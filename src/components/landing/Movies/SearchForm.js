@@ -23,7 +23,7 @@ function SearchForm(props){
         <form className="search-form__form">
           <div className="search-form__window">
             <img className="search-form__loupe" src={loupe} alt="лупа" />
-            <input className="search-form__input" type="text" placeholder="Фильм"></input>
+            <input className="search-form__input" type="text" name="movie" placeholder="Фильм" required></input>
             <button className="search-form__button-submit" type="submit" onClick={handleSubmit}>
               <img src={enter} alt="ввод" />
             </button>

@@ -18,15 +18,15 @@ function Profile(props){
       <div className="profile__content">
         <div>
           <p className="profile__greeting">Привет, {"Виталий"}!</p>
-          <form className="profile__info">
+          <form className="profile__info" name="profile">
             <div className="profile__row">
               <label className="profile__row-name">Имя</label>
-              {!isEditMode || ( <input className="profile__input profile__input_content_name" type="text" defaultValue={"Виталий"}></input> )}
+              {!isEditMode || ( <input className="profile__input profile__input_content_name" type="text" name="name" defaultValue={"Виталий"} required></input> )}
               {isEditMode || ( <p className="profile__value">{"Виталий"}</p> )}
             </div>
             <div className="profile__row">
               <label className="profile__row-name">E-mail</label>
-              {!isEditMode || ( <input className="profile__input profile__input_content_email" type="text" defaultValue={"pochta@gmail.com"}></input> )}
+              {!isEditMode || ( <input className="profile__input profile__input_content_email" type="email" name="email" defaultValue={"pochta@gmail.com"} required></input> )}
               {isEditMode || ( <p className="profile__value">{"pochta@gmail.com"}</p> )}
             </div>
             {!isEditMode || (

@@ -15,6 +15,7 @@
 }
 
 .search-form__input:focus {
+  font-weight: 500;
   color: #505050;
 }
 .search-form__input::placeholder {
