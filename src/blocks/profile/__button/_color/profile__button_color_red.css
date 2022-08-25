@@ -1,0 +1,9 @@
+.profile__button_color_red {
+  color: #FF4062;
+  transition: 0.35s ease-in color;
+}
+
+.profile__button_color_red:hover {
+  opacity: 1;
+  color: #FF0000;
+}

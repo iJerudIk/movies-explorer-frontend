@@ -1,0 +1,13 @@
+.navigation__profile-link {
+  margin-top: auto;
+  padding: 8px 20px;
+  background: #F9F9F9;
+  border-radius: 20px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000;
+  text-decoration: none;
+}

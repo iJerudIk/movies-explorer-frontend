@@ -1,0 +1,13 @@
+.about-me__description {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+@media (max-width: 320px) {
+  .about-me__description {
+    grid-template-columns: 1fr;
+  }
+}

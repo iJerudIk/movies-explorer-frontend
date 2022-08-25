@@ -1,0 +1,11 @@
+.about-me__photo {
+  width: 100%;
+  max-width: 270px;
+}
+
+@media (max-width: 768px) {
+  .about-me__photo {
+    max-width: 255px;
+    margin: 0 auto;
+  }
+}

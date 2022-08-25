@@ -1,0 +1,18 @@
+.profile__input {
+  min-width: 100px;
+  height: 70%;
+  padding: 0 10px;
+  border: none;
+  outline: none;
+  border-left: 1px solid rgba(238, 238, 238, 0.9);
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.profile__input:focus {
+  font-weight: 500;
+  border-left: 1px solid #777;
+}

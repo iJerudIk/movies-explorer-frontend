@@ -1,0 +1,24 @@
+.card-list__button-more {
+  max-width: 320px;
+  margin: 80px auto;
+  padding: 10px 0;
+  border: 1px solid #E8E8E8;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.35s ease-in background-color;
+}
+
+.card-list__button-more:hover {
+  background-color: #F6F6F6;
+}
+
+@media (max-width: 320px) {
+  .card-list__button-more {
+    max-width: 240px;
+  }
+}

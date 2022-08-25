@@ -1,0 +1,11 @@
+.header__right-part {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+@media (max-width: 320px) {
+  .header__right-part {
+    gap: 14px;
+  }
+}

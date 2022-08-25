@@ -1,0 +1,15 @@
+.search-form__checkbox-name {
+  margin: 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+@media (max-width: 320px) {
+  .search-form__checkbox-name {
+    font-size: 11px;
+    line-height: 18px;
+  }
+}

@@ -1,0 +1,17 @@
+.search-form__window {
+  width: calc(100% - 239px);
+  min-width: 320px;
+  padding: 19px;
+  display: grid;
+  grid-template-columns: min-content 1fr max-content;
+}
+
+@media (max-width: 618px) {
+  .search-form__window {
+    width: 100%;
+    min-width: 0;
+    background-color: #F9F9F9;
+    border-radius: 9px;
+    grid-template-columns: 1fr 34px;
+  }
+}

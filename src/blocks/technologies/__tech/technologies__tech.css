@@ -1,0 +1,32 @@
+.technologies__tech {
+  width: 90px;
+  height: 60px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E8E8E8;
+  border-radius: 10px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: -0.04em;
+  color: #000;
+  text-decoration: none;
+  transition: 0.35s ease-in background-color;
+}
+
+.technologies__tech:hover {
+  background-color: #DDD;
+}
+
+@media (max-width: 768px) {
+  .technologies__tech {
+    width: 84px;
+    height: 56px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

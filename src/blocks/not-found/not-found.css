@@ -1,0 +1,21 @@
+.not-found {
+  min-height: 100vh;
+  padding: 60px 15px;
+  display: grid;
+  grid-template-rows: 1fr max-content;
+  align-content: center;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .not-found {
+    padding: 30px 15px;
+    grid-template-rows: max-content minmax(17px, 130px);
+  }
+}
+
+@media (max-width: 320px) {
+  .not-found {
+    grid-template-rows: 1fr max-content;
+  }
+}

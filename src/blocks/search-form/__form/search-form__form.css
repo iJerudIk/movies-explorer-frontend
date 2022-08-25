@@ -1,0 +1,25 @@
+.search-form__form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 11px;
+  background-color: #F9F9F9;
+  background-clip: content-box;
+  margin-bottom: 70px;
+  border-radius: 9px;
+}
+
+@media (max-width: 768px) {
+  .search-form__form {
+    margin-bottom: 110px;
+  }
+}
+
+@media (max-width: 618px) {
+  .search-form__form {
+    background-color: #fff;
+    grid-template-columns: 1fr;
+    gap: 26px;
+    margin-bottom: 44px;
+  }
+}

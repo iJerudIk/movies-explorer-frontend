@@ -1,0 +1,27 @@
+.search-form__checkbox {
+  height: 40px;
+  padding: 0 30px;
+  border-left: 1px solid #E8E8E8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+}
+
+@media (max-width: 768px) {
+  .search-form__checkbox {
+    padding: 0 20px;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 618px) {
+  .search-form__checkbox {
+    height: auto;
+    padding: 20px;
+    width: 100%;
+    gap: 13px;
+    border: none;
+    background: #fff;
+  }
+}
