@@ -10,8 +10,7 @@ module.exports.myMovies = [
     "thumbnail": "https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/84934543-5991-4c93-97eb-beb6186a3ad7/300x450",
     "movieId": "143",
     "nameRU": "Джокер",
-    "nameEN": "Joker",
-    "_id": "123"
+    "nameEN": "Joker"
   },
   {
     "country": "USA",

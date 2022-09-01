@@ -31,7 +31,7 @@
 @import url('./blocks/footer/__links/footer__links.css');
 
 @import url('./blocks/preloader/preloader.css');
-@import url('./blocks/preloader/__block/preloader__block.css');
+@import url('./blocks/preloader/__inner/preloader__inner.css');
 
 /* --------------------------------- */
 
@@ -107,6 +107,7 @@
 @import url('./blocks/card-list/__card/card-list__card.css');
 @import url('./blocks/card-list/__card-image/card-list__card-image.css');
 @import url('./blocks/card-list/__card-top-part/card-list__card-top-part.css');
+@import url('./blocks/card-list/__card-info/card-list__card-info.css');
 @import url('./blocks/card-list/__card-title/card-list__card-title.css');
 @import url('./blocks/card-list/__card-duration/card-list__card-duration.css');
 @import url('./blocks/card-list/__card-mark/card-list__card-mark.css');
@@ -123,10 +124,12 @@
 @import url('./blocks/profile/__row-name/profile__row-name.css');
 @import url('./blocks/profile/__value/profile__value.css');
 @import url('./blocks/profile/__input/profile__input.css');
+@import url('./blocks/profile/__input/_invalid/profile__input_invalid.css');
 @import url('./blocks/profile/__input-errors/profile__input-errors.css');
 @import url('./blocks/profile/__input-error/profile__input-error.css');
 @import url('./blocks/profile/__input-error/_valid/profile__input-error_valid.css');
 @import url('./blocks/profile/__button-submit/profile__button-submit.css');
+@import url('./blocks/profile/__button-submit/_disabled/profile__button-submit_disabled.css');
 @import url('./blocks/profile/__buttons/profile__buttons.css');
 @import url('./blocks/profile/__button/profile__button.css');
 @import url('./blocks/profile/__button/_color/profile__button_color_red.css');
@@ -141,7 +144,11 @@
 @import url('./blocks/auth/__row/auth__row.css');
 @import url('./blocks/auth/__row-name/auth__row-name.css');
 @import url('./blocks/auth/__input/auth__input.css');
+@import url('./blocks/auth/__input/_invalid/auth__input_invalid.css');
+@import url('./blocks/auth/__input-error/auth__input-error.css');
+@import url('./blocks/auth/__input-error/_inactive/auth__input-error_inactive.css');
 @import url('./blocks/auth/__button-submit/auth__button-submit.css');
+@import url('./blocks/auth/__button-submit/_disabled/auth__button-submit_disabled.css');
 @import url('./blocks/auth/__choice/auth__choice.css');
 @import url('./blocks/auth/__link/auth__link.css');
 

@@ -1,7 +1,8 @@
 .card-list__cards {
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: 1fr;
   grid-gap: 30px 24px;
   list-style: none;
 }
@@ -9,7 +10,7 @@
 @media (max-width: 768px) {
   .card-list__cards {
     grid-gap: 36px 30px;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   }
 }
 

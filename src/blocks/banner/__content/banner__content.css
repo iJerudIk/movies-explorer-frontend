@@ -1,19 +1,22 @@
 .banner__content {
   max-width: 1200px;
+  height: 100vh;
+  max-height: calc(100vh - 190px);
   margin: 0 auto;
-  padding: 160px 0 151px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: #F5F5F5;
   border-radius: 10px 10px 0 0;
 }
 
 @media (max-width: 768px) {
   .banner__content {
-    padding: 350px 0 314px;
   }
 }
 
 @media (max-width: 320px) {
   .banner__content {
-    padding: 220px 0 212px;
+    max-height: calc(100vh - 156px);
   }
 }

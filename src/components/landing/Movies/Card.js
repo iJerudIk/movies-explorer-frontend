@@ -9,15 +9,24 @@ import markInactive from '../../../images/mark-inactive.svg';
 // ---------------------------------
 
 function Card(props){
-  const [isLiked, setIsLiked] = React.useState(props.card.isLiked);
+  const [isLiked, setIsLiked] = React.useState(
+    props.isSavedMovies || props.myCards.some((card) => {return card.nameEN === props.card.nameEN})
+  );
 
   const hours = Math.floor(props.card.duration/60);
   const minutes = props.card.duration - hours*60;
 
   function onMarkClick() {
-    props.onCardLike(props.card);
-    if(isLiked) setIsLiked(false);
-    else setIsLiked(true);
+    if(isLiked){
+      props.myCards.forEach((card) => {
+        if(card.nameEN === props.card.nameEN) props.onCardDelete(card);;
+      });
+      setIsLiked(false);
+    }
+    else{
+      props.onCardLike(props.card);
+      setIsLiked(true);
+    }
   }
 
   function handleCardDelete() {props.onCardDelete(props.card)}
@@ -25,8 +34,8 @@ function Card(props){
   return (
     <div className="card-list__card">
       <div className="card-list__card-top-part">
-        <div>
-          <h5 className="card-list__card-title">{props.card.nameRU}</h5>
+        <div className="card-list__card-info">
+          <h5 className="card-list__card-title">{props.card.nameRU || props.card.nameEN}</h5>
           <p className="card-list__card-duration">{ `${hours}ч ${minutes}м`}</p>
         </div>
         {
@@ -41,7 +50,7 @@ function Card(props){
             )
         }
       </div>
-      <div className="card-list__card-image" style={{backgroundImage: `url(${props.card.image})`}}></div>
+      <div className="card-list__card-image" style={{backgroundImage: `url(${props.isSavedMovies ? props.card.image : 'https://api.nomoreparties.co'+props.card.image.url})`}}></div>
     </div>
   )
 }

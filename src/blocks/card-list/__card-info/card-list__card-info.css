@@ -1,0 +1,3 @@
+.card-list__card-info {
+  max-width: calc(100% - 30px);
+}

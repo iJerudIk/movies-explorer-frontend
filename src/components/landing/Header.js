@@ -13,7 +13,7 @@ function Header(props){
     <header className="header">
       <div className="header__content">
         <div className="header__left-part">
-        <Link className="header__logo" to="/"><img src={logo} alt="логотип" /></Link>
+          <Link className="header__logo" to="/"><img src={logo} alt="логотип" /></Link>
           { !props.loggedIn ||
             (
               <>
