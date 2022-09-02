@@ -1,4 +1,4 @@
-# Movies-Explorer-rinted
+# Movies-Explorer-Frontend
 ---
 
 **Фронтенд проекта**
