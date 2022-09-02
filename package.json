@@ -16,7 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "deploy": "npm run build && scp -r ./build/* ijerudik@84.201.137.149:/home/ijerudik/movies-explorer/frontend",
+    "deploy": "npm run build && scp -r ./build/* ijerudik@51.250.97.183:/home/ijerudik/movies-explorer/frontend",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

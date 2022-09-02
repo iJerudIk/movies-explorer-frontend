@@ -105,6 +105,7 @@
 @import url('./blocks/card-list/__content/card-list__content.css');
 @import url('./blocks/card-list/__cards/card-list__cards.css');
 @import url('./blocks/card-list/__card/card-list__card.css');
+@import url('./blocks/card-list/__nothing/card-list__nothing.css');
 @import url('./blocks/card-list/__card-image/card-list__card-image.css');
 @import url('./blocks/card-list/__card-top-part/card-list__card-top-part.css');
 @import url('./blocks/card-list/__card-info/card-list__card-info.css');

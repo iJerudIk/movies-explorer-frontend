@@ -11,7 +11,10 @@ function SearchForm(props){
   const movie = React.useRef();
   const [isShortcut, setIsShortcut] = React.useState(props.searchCheckboxValue);
 
-  function handleCheckboxClick() {setIsShortcut(!isShortcut)}
+  function handleCheckboxClick() {
+    props.onSubmitSearchForm(props.isSavedMovies, movie.current.value, !isShortcut);
+    setIsShortcut(!isShortcut);
+  }
   function handleSubmit(evt) {
     evt.preventDefault();
     props.onSubmitSearchForm(props.isSavedMovies, movie.current.value, isShortcut);

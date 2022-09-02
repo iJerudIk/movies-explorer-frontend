@@ -12,8 +12,8 @@ function Profile(props){
 
   const name = React.useRef();
   const email = React.useRef();
-  const [nameError, setNameError] = React.useState({isError: false, message: "Имя валидно"});
-  const [emailError, setEmailError] = React.useState({isError: false, message: "Почта валидна"});
+  const [nameError, setNameError] = React.useState({isError: true, message: "Имя не отличается"});
+  const [emailError, setEmailError] = React.useState({isError: true, message: "Имя не отличается"});
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -25,6 +25,7 @@ function Profile(props){
 
   function checkValidity(evt) {
     if(evt.target.name === "name"){
+      if(name.current.value === currentUser.name) {setNameError({isError: true, message: "Имя не отличается"}); return}
       if(name.current.value.length === 0) {setNameError({isError: true, message: "Имя — обязательное поле"}); return}
       if(name.current.value.length > 30) {setNameError({isError: true, message: "Имя больше 30 знаков"}); return}
       if(name.current.value.length < 2) {setNameError({isError: true, message: "Имя меньше 2 знаков"}); return}
@@ -32,12 +33,17 @@ function Profile(props){
     }
 
     if(evt.target.name === "email"){
-      const regEmail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{1,4})$/;
+      const regEmail = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{1,4})$/;
+      if(email.current.value === currentUser.email) {setNameError({isError: true, message: "Почта не отличается"}); return}
       if(email.current.value.length === 0) {setEmailError({isError: true, message: "Почта — обязательное поле"}); return}
       if(!regEmail.test(email.current.value)) {setEmailError({isError: true, message: "Почта невалидна"}); return}
       setEmailError({isError: false, message: "Почта валидна"});
     }
   }
+
+  React.useEffect(() => {
+    window.addEventListener('keyup', (evt) => {if(evt.key == 'Escape') setIsEditMode(false)})
+  })
 
   return (
     <section className="profile">

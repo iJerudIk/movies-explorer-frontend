@@ -19,7 +19,7 @@ function Login(props){
 
   function checkValidity(evt) {
     if(evt.target.name === "email"){
-      const regEmail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{1,4})$/;
+      const regEmail = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{1,4})$/;
       if(email.current.value.length === 0) {setEmailError({isError: true, message: "Почта — обязательное поле"}); return}
       if(!regEmail.test(email.current.value)) {setEmailError({isError: true, message: "Почта невалидна"}); return}
       setEmailError({isError: false, message: "Почта валидна"});

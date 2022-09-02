@@ -25,32 +25,38 @@ function MoviesCardList(props){
   }, [props.cards]);
 
   React.useEffect(() => {
-    if(windowWidth >= 1088){
-      setLoadCardsAmount(3);
-      props.setDefaultCardsAmount(12);
-    }
-    if(windowWidth < 1088){
-      setLoadCardsAmount(2);
-      props.setDefaultCardsAmount(8);
-    }
-    if(windowWidth < 550){
-      setLoadCardsAmount(2);
-      props.setDefaultCardsAmount(5);
+    if(!props.isSavedMovies){
+      if(windowWidth >= 1088){
+        setLoadCardsAmount(3);
+        props.setDefaultCardsAmount(12);
+      }
+      if(windowWidth < 1088){
+        setLoadCardsAmount(2);
+        props.setDefaultCardsAmount(8);
+      }
+      if(windowWidth < 550){
+        setLoadCardsAmount(2);
+        props.setDefaultCardsAmount(5);
+      }
     }
   }, [windowWidth])
 
   return (
     <section className="card-list">
       <div className="card-list__content">
-        <ul className="card-list__cards">
-          {props.isSavedMovies ?
-            (props.cards.map((card, i) => ( <li key={i}><Card card={card} {...props} /></li> ))) :
-            (displayedCards.map((card, i) => {
-              if(i < displayedCardsAmount)
-                return ( <li key={i}><Card card={card} {...props} /></li> );
-            }))
-          }
-        </ul>
+        {
+          props.cards.length > 0 && props.cards ?
+          (<ul className="card-list__cards">
+            {
+              props.isSavedMovies ?
+                (props.cards.map((card, i) => ( <li key={i}><Card card={card} {...props} /></li> ))) :
+                (displayedCards.map((card, i) => {
+                  if(i < displayedCardsAmount) return ( <li key={i}><Card card={card} {...props} /></li> );
+                }))
+            }
+          </ul>) :
+          (<p className="card-list__nothing">Ничего не было найдено</p>)
+        }
         {
           (props.cards.length - displayedCardsAmount < 3 || props.isSavedMovies) ||
           <div className="card-list__button-more" onClick={handleMoreButton}>Ещё</div>
