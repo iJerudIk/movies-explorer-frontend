@@ -3,7 +3,7 @@ import React from 'react';
 // ---------------------------------
 
 function ErrorMessage(props){
-  const [className, setClassName] = React.useState('');
+  const [className, setClassName] = React.useState(' ');
   const [isAtFirst, setIsAtFirst] = React.useState(true)
 
   React.useEffect(() => {
