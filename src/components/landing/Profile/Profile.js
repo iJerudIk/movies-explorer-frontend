@@ -13,7 +13,7 @@ function Profile(props){
   const name = React.useRef();
   const email = React.useRef();
   const [nameError, setNameError] = React.useState({isError: true, message: "Имя не отличается"});
-  const [emailError, setEmailError] = React.useState({isError: true, message: "Имя не отличается"});
+  const [emailError, setEmailError] = React.useState({isError: true, message: "Почта не отличается"});
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -34,7 +34,7 @@ function Profile(props){
 
     if(evt.target.name === "email"){
       const regEmail = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{1,4})$/;
-      if(email.current.value === currentUser.email) {setNameError({isError: true, message: "Почта не отличается"}); return}
+      if(email.current.value === currentUser.email) {setEmailError({isError: true, message: "Почта не отличается"}); return}
       if(email.current.value.length === 0) {setEmailError({isError: true, message: "Почта — обязательное поле"}); return}
       if(!regEmail.test(email.current.value)) {setEmailError({isError: true, message: "Почта невалидна"}); return}
       setEmailError({isError: false, message: "Почта валидна"});

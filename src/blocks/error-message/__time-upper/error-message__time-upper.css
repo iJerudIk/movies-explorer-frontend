@@ -1,0 +1,11 @@
+.error-message_active .error-message__time-upper {
+  width: 100%;
+  height: 100%;
+  background: #2BE080;
+  animation: time-upper 3s linear;
+}
+
+@keyframes time-upper {
+  from {width: 0%}
+  to {width: 100%}
+}

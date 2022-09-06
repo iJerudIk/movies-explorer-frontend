@@ -10,6 +10,7 @@ import Header from './landing/Header';
 import Navigation from './landing/Navigation';
 import Footer from './landing/Footer';
 import Preloader from './landing/Preloader';
+import ErrorMessage from './landing/ErrorMessage';
 import Main from './landing/Main/Main';
 import Movies from './landing/Movies/Movies';
 import SavedMovies from './landing/Movies/SavedMovies';
@@ -22,6 +23,8 @@ import { mainApi } from '../utils/Apies/MainApi.js';
 import { moviesApi } from '../utils/Apies/MoviesApi.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
+import { SHORTCUT_DURATION } from '../utils/constants';
+
 // ---------------------------------
 
 function App() {
@@ -30,6 +33,9 @@ function App() {
   const [loggedIn, setLogged] = React.useState(false);
   const [needToShowHeader, setNeedToShowHeader] = React.useState(true);
   const [needToShowFooter, setNeedToShowFooter] = React.useState(true);
+  const [needToShowPreloader, setNeedToShowPreloader] = React.useState(false);
+
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -39,19 +45,20 @@ function App() {
   const [myCards, setMyCards] = React.useState([]);
 
   const [allDisplayedCards, setAllDisplayedCards] = React.useState({isDisplayed: false, cards: []});
-  const [myDisplayedCards, setMyDisplayedCards] = React.useState({isDisplayed: false, cards: []});
   const [allDisplayedCardsAmount, setAllDisplayedCardsAmount] = React.useState(0);
   const [originCardsAmount, setOriginCardsAmount] = React.useState(0);
   const [allCardsSearchInputValue, setAllCardsSearchInputValue] = React.useState('');
-  const [myCardsSearchInputValue, setMyCardsSearchInputValue] = React.useState('');
   const [allCardsSearchCheckboxValue, setAllCardsSearchCheckboxValue] = React.useState(false);
-  const [myCardsSearchCheckboxValue, setMyCardsSearchCheckboxValue] = React.useState(false);
+  const [myDisplayedCards, setMyDisplayedCards] = React.useState({isDisplayed: false, cards: []});
 
   // ---------------------------------
 
   function handleCardDelete(card) {
     mainApi.removeMyMovie(card._id)
-      .catch((err) => console.log(`Ошибка : ${err}`));
+    .catch((err) => {
+      console.log(`Ошибка : ${err}`);
+      setErrorMessage(`Не удалось удалить фильм  ${err}`);
+    })
 
     setMyCards(state=>state.filter((c) => {return c._id !== card._id}));
     setMyDisplayedCards({isDisplayed: myDisplayedCards.isDisplayed, cards: myDisplayedCards.cards.filter((c) => {return c._id !== card._id})});
@@ -81,10 +88,12 @@ function App() {
         newMyCards.push(newMovie);
         setMyCards(newMyCards);
       })
-      .catch((err) => console.log(`Ошибка : ${err}`));
+      .catch((err) => {
+        console.log(`Ошибка : ${err}`);
+        setErrorMessage(`Не удалось поставить лайк  ${err}`);
+      })
   }
-  function handleSubmitSearchForm(isSavedMovies, inputValue, isShortcut) {
-    const cards = isSavedMovies ? myCards : allCards;
+  function findMovies(cards, isSavedMovies, inputValue, isShortcut) {
     let cardsToShow = cards.filter((card) => {
       return (
         (String(card.nameEN).toLowerCase().includes(inputValue.toLowerCase()) && card.nameEN !== null) ||
@@ -92,32 +101,72 @@ function App() {
       )
     });
     if(isShortcut) {
-      cardsToShow = cardsToShow.filter((card) => {return card.duration <= 40});
+      cardsToShow = cardsToShow.filter((card) => {return card.duration <= SHORTCUT_DURATION});
     }
 
-    if(isSavedMovies) {
-      setMyCardsSearchCheckboxValue(isShortcut);
-      setMyCardsSearchInputValue(inputValue);
-      setMyDisplayedCards({isDisplayed: true, cards: cardsToShow});
-    } else {
+    if(!isSavedMovies) {
       setAllCardsSearchCheckboxValue(isShortcut);
       setAllCardsSearchInputValue(inputValue);
       setAllDisplayedCards({isDisplayed: true, cards: cardsToShow});
       setAllDisplayedCardsAmount(originCardsAmount);
+
+      localStorage.setItem('displayedCardsInfo', JSON.stringify({
+        cardsSearchCheckboxValue: isShortcut,
+        cardsSearchInputValue: inputValue,
+        isDisplayedCardsDisplayed: true,
+        displayedCards: cardsToShow,
+        displayedCardsAmount: originCardsAmount
+      }));
+    } else {
+      setMyDisplayedCards({isDisplayed: true, cards: cardsToShow});
     }
   }
-  function handleMoreButton(loadedAmount) {setAllDisplayedCardsAmount(allDisplayedCardsAmount + loadedAmount)}
+  function handleSubmitSearchForm(isSavedMovies, inputValue, isShortcut) {
+    if(isSavedMovies) findMovies(myCards, isSavedMovies, inputValue, isShortcut)
+    else {
+      if(allCards.length > 0) findMovies(allCards, isSavedMovies, inputValue, isShortcut);
+      else {
+        setNeedToShowPreloader(true);
+        moviesApi.getAllMovies()
+          .then((cards) => {
+            setAllCards(cards);
+            findMovies(cards, isSavedMovies, inputValue, isShortcut);
+            setNeedToShowPreloader(false);
+          })
+          .catch((err) => {
+            console.log(`Ошибка : ${err}`);
+            setNeedToShowPreloader(false);
+            setErrorMessage(`Не удалось загрузить фильмы  ${err}`);
+          })
+      }
+    }
+  }
+  function handleMoreButton(loadedAmount) {
+    setAllDisplayedCardsAmount(allDisplayedCardsAmount + loadedAmount);
+    localStorage.setItem('displayedCardsInfo', JSON.stringify({
+      ...JSON.parse(localStorage.getItem('displayedCardsInfo')),
+      displayedCardsAmount: allDisplayedCardsAmount + loadedAmount
+    }));
+  }
   function changeOriginCardsAmount(amount) {setOriginCardsAmount(amount)}
 
   // ---------------------------------
 
   function handleSubmitEditProfile(name, email) {
     mainApi.setUserInfo({name, email})
-      .then((userInfo) => {setCurrentUser(userInfo)})
+      .then((userInfo) => setCurrentUser(userInfo))
+      .catch((err) => {
+        console.log(`Ошибка : ${err}`);
+        setErrorMessage(`Не удалось изменить ваши данные. ${err}`);
+      })
   }
   function handleLogout() {
     mainApi.deleteToken();
-    localStorage.removeItem('token');
+    localStorage.clear();
+    setAllDisplayedCards({isDisplayed: false, cards: []});
+    setAllDisplayedCardsAmount(0);
+    setAllCardsSearchInputValue('');
+    setAllCardsSearchCheckboxValue(false);
     setLogged(false);
   }
 
@@ -127,10 +176,13 @@ function App() {
     auth.register(name, email, password)
       .then((res) => {
         if(res){
-          history.push('/signin');
+          handleLogin(email, password);
         }
       })
-      .catch((err) => console.log(`Ошибка : ${err}`));
+      .catch((err) => {
+        console.log(`Ошибка : ${err}`);
+        setErrorMessage(`Не удалось зарегестрироваться  ${err}`);
+      })
   }
   function handleLogin(email, password) {
     auth.authorize(email, password)
@@ -140,7 +192,10 @@ function App() {
           setLogged(true);
         }
       })
-      .catch((err) => console.log(`Ошибка : ${err}`));
+      .catch((err) => {
+        console.log(`Ошибка : ${err}`);
+        setErrorMessage(`Не удалось авторизоваться. ${err}`);
+      })
   }
 
   // ---------------------------------
@@ -167,6 +222,7 @@ function App() {
         else setNeedToShowFooter(true);
       }
     }
+    setMyDisplayedCards({isDisplayed: false, cards: []})
   }, [location]);
 
   React.useEffect(() => {
@@ -175,30 +231,48 @@ function App() {
       history.push('/preloader');
       mainApi.setToken(token);
 
+      mainApi.getUserInfo()
+        .then((userInfo) => {
+          if(userInfo) {
+            setCurrentUser(userInfo);
+            setLogged(true);
+          }
+        })
+        .catch((err) => {
+          console.log(`Ошибка : ${err}`);
+          if(err === 'Ошибка 401'){
+            mainApi.deleteToken();
+            localStorage.removeItem('token');
+            setLogged(false);
+            history.push('/signin');
+          }
+        })
+
       if(loggedIn){
         mainApi.getUserInfo()
           .then((userInfo) => setCurrentUser(userInfo))
+          .catch((err) => {
+            console.log(`Ошибка : ${err}`);
+            setErrorMessage(`Не удалось загрузить ваши данные  ${err}`);
+          })
         mainApi.getMyMovies()
-          .then((cards) => setMyCards(cards))
-          .then(() => {
-            moviesApi.getAllMovies()
-              .then((cards) => {
-                setAllCards(cards);
-                history.push('/movies');
-              })
-              .catch((err) => console.log(`Ошибка : ${err}`))
+          .then((cards) => {
+            setMyCards(cards);
+            history.push('/movies');
           })
-          .catch((err) => console.log(`Ошибка : ${err}`))
-      }
-      else {
-        mainApi.getUserInfo()
-          .then((userInfo) => {
-            if(userInfo) setLogged(true);
+          .catch((err) => {
+            console.log(`Ошибка : ${err}`);
+            setErrorMessage(`Не удалось загрузить ваши фильмы  ${err}`);
           })
-          .catch((err) => console.log(`Ошибка : ${err}`))
+        const displayedCardsInfo = JSON.parse(localStorage.getItem('displayedCardsInfo'));
+        if(displayedCardsInfo) {
+          setAllCardsSearchCheckboxValue(displayedCardsInfo.cardsSearchCheckboxValue);
+          setAllCardsSearchInputValue(displayedCardsInfo.cardsSearchInputValue);
+          setAllDisplayedCards({isDisplayed: displayedCardsInfo.isDisplayedCardsDisplayed, cards: displayedCardsInfo.displayedCards});
+          setAllDisplayedCardsAmount(displayedCardsInfo.displayedCardsAmount);
+        }
       }
     } else {
-      history.push('/');
       mainApi.deleteToken();
     }
   }, [loggedIn, history]);
@@ -210,6 +284,7 @@ function App() {
       <div className="App">
         {!needToShowHeader || ( <Header loggedIn={loggedIn} onMenuClick={openMenu}></Header> )}
         {!needToShowHeader || ( <Navigation isOpen={isMenuOpen} onCrossClick={closeMenu}></Navigation> )}
+        <ErrorMessage message={errorMessage} />
 
         <main>
           <Switch>
@@ -224,6 +299,7 @@ function App() {
                 onCardDelete={handleCardDelete}
                 onSubmitSearchForm={handleSubmitSearchForm}
                 onMoreButton={handleMoreButton}
+                needToShowPreloader={needToShowPreloader}
                 searchInputValue={allCardsSearchInputValue}
                 searchCheckboxValue={allCardsSearchCheckboxValue}
                 cards={allDisplayedCards.cards}
@@ -239,8 +315,6 @@ function App() {
                 loggedIn={loggedIn}
                 onCardDelete={handleCardDelete}
                 onSubmitSearchForm={handleSubmitSearchForm}
-                searchInputValue={myCardsSearchInputValue}
-                searchCheckboxValue={myCardsSearchCheckboxValue}
                 cards={myDisplayedCards.isDisplayed ? myDisplayedCards.cards : myCards}
                 component={SavedMovies}
               />
@@ -267,7 +341,7 @@ function App() {
               <Preloader />
             </Route>
 
-            <Route path="/">
+            <Route path="*">
               <NotFound />
             </Route>
           </Switch>

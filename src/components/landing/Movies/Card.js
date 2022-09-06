@@ -9,9 +9,7 @@ import markInactive from '../../../images/mark-inactive.svg';
 // ---------------------------------
 
 function Card(props){
-  const [isLiked, setIsLiked] = React.useState(
-    props.isSavedMovies || props.myCards.some((card) => {return card.nameEN === props.card.nameEN})
-  );
+  const [isLiked, setIsLiked] = React.useState(props.isLiked);
 
   const hours = Math.floor(props.card.duration/60);
   const minutes = props.card.duration - hours*60;
@@ -19,7 +17,7 @@ function Card(props){
   function onMarkClick() {
     if(isLiked){
       props.myCards.forEach((card) => {
-        if(card.nameEN === props.card.nameEN) props.onCardDelete(card);;
+        if(card.movieId === props.card.id) props.onCardDelete(card);
       });
       setIsLiked(false);
     }
@@ -41,7 +39,7 @@ function Card(props){
         {
           props.isSavedMovies ?
             (
-              <button className="card-list__card-mark" onClick={handleCardDelete}><img src={cross} alt="крестик" /></button>
+              <button className="card-list__card-cross" onClick={handleCardDelete}><img src={cross} alt="крестик" /></button>
             ) :
             (
               <button className={`card-list__card-mark ${isLiked || "card-list__card-mark_inactive"}`} onClick={onMarkClick}>

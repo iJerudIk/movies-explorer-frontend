@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 // ---------------------------------
 
@@ -36,7 +37,7 @@ function Login(props){
   return (
     <section className="auth">
       <div className="auth__content">
-        <img className="auth__logo" src={logo} alt="логотип" />
+        <Link className="auth__logo" to="/"><img src={logo} alt="логотип" /></Link>
         <p className="auth__greeting">Рады видеть!</p>
         <FormAuth isRegister={false} onLogin={onLogin} isButtonActive={!(emailError.isError || passwordError.isError)}>
           <div className="auth__row">
