@@ -190,6 +190,7 @@ function App() {
         if(res.token){
           localStorage.setItem('token', res.token);
           setLogged(true);
+          history.push('/movies');
         }
       })
       .catch((err) => {
