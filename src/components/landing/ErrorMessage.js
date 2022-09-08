@@ -15,7 +15,7 @@ function ErrorMessage(props){
     } else {
       setIsAtFirst(false);
     }
-  }, [props.message])
+  }, [props.messageNumber])
 
   return (
     <div className={`error-message ${className}`}>

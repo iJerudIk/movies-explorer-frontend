@@ -9,7 +9,7 @@ import markInactive from '../../../images/mark-inactive.svg';
 // ---------------------------------
 
 function Card(props){
-  const [isLiked, setIsLiked] = React.useState(props.isLiked);
+  const [isLiked, setIsLiked] = React.useState(false);
 
   const hours = Math.floor(props.card.duration/60);
   const minutes = props.card.duration - hours*60;
@@ -28,6 +28,10 @@ function Card(props){
   }
 
   function handleCardDelete() {props.onCardDelete(props.card)}
+
+  React.useEffect(() => {
+    setIsLiked(props.isLiked);
+  }, [props.isLiked])
 
   return (
     <div className="card-list__card">

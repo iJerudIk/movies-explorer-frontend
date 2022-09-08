@@ -29,7 +29,7 @@ function MoviesCardList(props){
       setDisplayedCards(props.cards);
       setDisplayedCardsAmount(props.cardsAmount);
     }
-  }, [props, displayedCards, myCards]);
+  }, [props.myCards, props.cards, props.cardsAmount]);
 
   React.useEffect(() => {
     if(!props.isSavedMovies){

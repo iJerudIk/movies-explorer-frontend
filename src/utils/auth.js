@@ -8,12 +8,7 @@ export const register = (name, email, password) => {
     },
     body: JSON.stringify({name, email, password})
   })
-  .then((res) => {
-    if (res.status === 201){
-      return res.json();
-    }
-  })
-  .catch((err) => console.log(err));
+  .then(checkResponse)
 };
 
 export const authorize = (email, password) => {
@@ -24,6 +19,10 @@ export const authorize = (email, password) => {
     },
     body: JSON.stringify({email, password})
   })
-  .then((response => response.json()))
-  .catch(err => {console.log(err)})
+  .then(checkResponse)
+}
+
+function checkResponse(res){
+  if (res.ok) return res.json();
+  return Promise.reject(`Ошибка ${res.status}`);
 }

@@ -7,6 +7,12 @@
   line-height: 17px;
   color: #000;
   text-decoration: none;
+  cursor: pointer;
+  transition: 0.35s ease-in opacity;
+}
+
+.not-found__back:hover {
+  opacity: 0.75;
 }
 
 @media (max-width: 768px) {

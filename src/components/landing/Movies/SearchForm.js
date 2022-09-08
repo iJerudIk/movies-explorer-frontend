@@ -9,7 +9,7 @@ import enter from '../../../images/enter.svg';
 
 function SearchForm(props){
   const movie = React.useRef();
-  const [isShortcut, setIsShortcut] = React.useState(props.searchCheckboxValue);
+  const [isShortcut, setIsShortcut] = React.useState(false);
 
   function handleCheckboxClick() {
     props.onSubmitSearchForm(props.isSavedMovies, movie.current.value, !isShortcut);
@@ -19,6 +19,10 @@ function SearchForm(props){
     evt.preventDefault();
     props.onSubmitSearchForm(props.isSavedMovies, movie.current.value, isShortcut);
   }
+
+  React.useEffect(() => {
+    setIsShortcut(props.searchCheckboxValue);
+  }, [props.searchCheckboxValue])
 
   return (
     <section className="search-form">

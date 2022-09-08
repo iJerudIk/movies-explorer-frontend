@@ -9,7 +9,6 @@ import ProtectedRoute from './landing/ProtectedRoute';
 import Header from './landing/Header';
 import Navigation from './landing/Navigation';
 import Footer from './landing/Footer';
-import Preloader from './landing/Preloader';
 import ErrorMessage from './landing/ErrorMessage';
 import Main from './landing/Main/Main';
 import Movies from './landing/Movies/Movies';
@@ -34,8 +33,9 @@ function App() {
   const [needToShowHeader, setNeedToShowHeader] = React.useState(true);
   const [needToShowFooter, setNeedToShowFooter] = React.useState(true);
   const [needToShowPreloader, setNeedToShowPreloader] = React.useState(false);
+  const [needtoProtectRoutes, setNeedToProtectRoutes] = React.useState(false);
 
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState({message: '', number: 0});
 
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -57,7 +57,7 @@ function App() {
     mainApi.removeMyMovie(card._id)
     .catch((err) => {
       console.log(`Ошибка : ${err}`);
-      setErrorMessage(`Не удалось удалить фильм  ${err}`);
+      setErrorMessage({message: `Не удалось удалить фильм  ${err}`, number: errorMessage.number+1});
     })
 
     setMyCards(state=>state.filter((c) => {return c._id !== card._id}));
@@ -90,7 +90,7 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка : ${err}`);
-        setErrorMessage(`Не удалось поставить лайк  ${err}`);
+        setErrorMessage({message: `Не удалось поставить лайк  ${err}`, number: errorMessage.number+1});
       })
   }
   function findMovies(cards, isSavedMovies, inputValue, isShortcut) {
@@ -136,7 +136,7 @@ function App() {
           .catch((err) => {
             console.log(`Ошибка : ${err}`);
             setNeedToShowPreloader(false);
-            setErrorMessage(`Не удалось загрузить фильмы  ${err}`);
+            setErrorMessage({message: `Не удалось загрузить фильмы  ${err}`, number: errorMessage.number+1});
           })
       }
     }
@@ -154,10 +154,14 @@ function App() {
 
   function handleSubmitEditProfile(name, email) {
     mainApi.setUserInfo({name, email})
-      .then((userInfo) => setCurrentUser(userInfo))
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
+        setErrorMessage(`Профиль успешно изменён`);
+        setErrorMessage({message: `Профиль успешно изменён`, number: errorMessage.number+1});
+      })
       .catch((err) => {
         console.log(`Ошибка : ${err}`);
-        setErrorMessage(`Не удалось изменить ваши данные. ${err}`);
+        setErrorMessage({message: `Не удалось изменить ваши данные. ${err}`, number: errorMessage.number+1});
       })
   }
   function handleLogout() {
@@ -174,14 +178,10 @@ function App() {
 
   function handleRegister(name, email, password) {
     auth.register(name, email, password)
-      .then((res) => {
-        if(res){
-          handleLogin(email, password);
-        }
-      })
+      .then((res) => handleLogin(email, password))
       .catch((err) => {
         console.log(`Ошибка : ${err}`);
-        setErrorMessage(`Не удалось зарегестрироваться  ${err}`);
+        setErrorMessage({message: `Не удалось зарегестрироваться  ${err}`, number: errorMessage.number+1});
       })
   }
   function handleLogin(email, password) {
@@ -194,7 +194,7 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка : ${err}`);
-        setErrorMessage(`Не удалось авторизоваться. ${err}`);
+        setErrorMessage({message: `Не удалось авторизоваться. ${err}`, number: errorMessage.number+1});
       })
   }
 
@@ -228,7 +228,6 @@ function App() {
   React.useEffect(() => {
     const token = localStorage.getItem('token');
     if(token) {
-      history.push('/preloader');
       mainApi.setToken(token);
 
       mainApi.getUserInfo()
@@ -244,6 +243,7 @@ function App() {
             mainApi.deleteToken();
             localStorage.removeItem('token');
             setLogged(false);
+            setNeedToProtectRoutes(true);
             history.push('/signin');
           }
         })
@@ -253,29 +253,30 @@ function App() {
           .then((userInfo) => setCurrentUser(userInfo))
           .catch((err) => {
             console.log(`Ошибка : ${err}`);
-            setErrorMessage(`Не удалось загрузить ваши данные  ${err}`);
+            setErrorMessage({message: `Не удалось загрузить ваши данные  ${err}`, number: errorMessage.number+1});
           })
         mainApi.getMyMovies()
           .then((cards) => {
             setMyCards(cards);
-            history.push('/movies');
+            const displayedCardsInfo = JSON.parse(localStorage.getItem('displayedCardsInfo'));
+            if(displayedCardsInfo) {
+              setAllCardsSearchCheckboxValue(displayedCardsInfo.cardsSearchCheckboxValue);
+              setAllCardsSearchInputValue(displayedCardsInfo.cardsSearchInputValue);
+              setAllDisplayedCards({isDisplayed: displayedCardsInfo.isDisplayedCardsDisplayed, cards: displayedCardsInfo.displayedCards});
+              setAllDisplayedCardsAmount(displayedCardsInfo.displayedCardsAmount);
+              setNeedToProtectRoutes(true);
+            }
           })
           .catch((err) => {
             console.log(`Ошибка : ${err}`);
-            setErrorMessage(`Не удалось загрузить ваши фильмы  ${err}`);
+            setErrorMessage({message: `Не удалось загрузить ваши фильмы  ${err}`, number: errorMessage.number+1});
           })
-        const displayedCardsInfo = JSON.parse(localStorage.getItem('displayedCardsInfo'));
-        if(displayedCardsInfo) {
-          setAllCardsSearchCheckboxValue(displayedCardsInfo.cardsSearchCheckboxValue);
-          setAllCardsSearchInputValue(displayedCardsInfo.cardsSearchInputValue);
-          setAllDisplayedCards({isDisplayed: displayedCardsInfo.isDisplayedCardsDisplayed, cards: displayedCardsInfo.displayedCards});
-          setAllDisplayedCardsAmount(displayedCardsInfo.displayedCardsAmount);
-        }
       }
     } else {
       mainApi.deleteToken();
+      setNeedToProtectRoutes(true);
     }
-  }, [loggedIn, history]);
+  }, [history, loggedIn]);
 
   // ---------------------------------
 
@@ -284,7 +285,7 @@ function App() {
       <div className="App">
         {!needToShowHeader || ( <Header loggedIn={loggedIn} onMenuClick={openMenu}></Header> )}
         {!needToShowHeader || ( <Navigation isOpen={isMenuOpen} onCrossClick={closeMenu}></Navigation> )}
-        <ErrorMessage message={errorMessage} />
+        <ErrorMessage message={errorMessage.message} messageNumber={errorMessage.number} />
 
         <main>
           <Switch>
@@ -295,6 +296,7 @@ function App() {
             <Route exact path="/movies">
               <ProtectedRoute
                 loggedIn={loggedIn}
+                needToProtect={needtoProtectRoutes}
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDelete}
                 onSubmitSearchForm={handleSubmitSearchForm}
@@ -313,6 +315,7 @@ function App() {
             <Route exact path="/saved-movies">
               <ProtectedRoute
                 loggedIn={loggedIn}
+                needToProtect={needtoProtectRoutes}
                 onCardDelete={handleCardDelete}
                 onSubmitSearchForm={handleSubmitSearchForm}
                 cards={myDisplayedCards.isDisplayed ? myDisplayedCards.cards : myCards}
@@ -323,6 +326,7 @@ function App() {
             <Route exact path="/profile">
               <ProtectedRoute
                 loggedIn={loggedIn}
+                needToProtect={needtoProtectRoutes}
                 onSubmitEdition={handleSubmitEditProfile}
                 onLogout={handleLogout}
                 component={Profile}
@@ -335,10 +339,6 @@ function App() {
 
             <Route exact path="/signup">
               {loggedIn ? ( <Redirect to="/" /> ) : ( <Register onRegister={handleRegister} /> )}
-            </Route>
-
-            <Route exact path="/preloader">
-              <Preloader />
             </Route>
 
             <Route path="*">
