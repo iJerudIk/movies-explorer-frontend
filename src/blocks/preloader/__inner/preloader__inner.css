@@ -1,0 +1,18 @@
+.preloader__inner {
+  width: 14px;
+  height: 4px;
+  position: absolute;
+  top: 19px;
+  left: 7px;
+  border-radius: 2px;
+  background-color: #A0A0A0;
+  animation: loader-inner 3s infinite ease-in-out;
+}
+
+@keyframes loader-inner {
+  0% {top: 19px}
+  20% {top: 19px}
+  50% {top: 5px}
+  70% {top: 5px}
+  100% {top: 19px}
+}

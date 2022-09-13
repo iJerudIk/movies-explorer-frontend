@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 function FormAuth(props){
   function handleSubmit(evt) {
     evt.preventDefault();
-    // -
     if(props.isRegister) props.onRegister();
     else props.onLogin();
   }
@@ -17,7 +16,7 @@ function FormAuth(props){
         {props.children}
       </div>
       <div className="auth__buttons">
-        <button className="auth__button-submit" type="submit" onClick={handleSubmit}>
+        <button className={`auth__button-submit ${props.isButtonActive || "auth__button-submit_disabled"}`} type="submit" disabled={!props.isButtonActive} onClick={handleSubmit}>
           {props.isRegister ? "Зарегистрироваться" : "Войти"}
         </button>
         <p className="auth__choice">

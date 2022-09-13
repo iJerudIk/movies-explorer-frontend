@@ -2,7 +2,7 @@ import React from 'react';
 
 // ---------------------------------
 
-import photo from '../../../images/my-photo.svg';
+import photo from '../../../images/my-photo.jpg';
 
 // ---------------------------------
 

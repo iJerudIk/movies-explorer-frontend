@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 // ---------------------------------
 
@@ -13,12 +13,12 @@ function Header(props){
     <header className="header">
       <div className="header__content">
         <div className="header__left-part">
-        <Link className="header__logo" to="/"><img src={logo} alt="логотип" /></Link>
+          <Link className="header__logo" to="/"><img src={logo} alt="логотип" /></Link>
           { !props.loggedIn ||
             (
               <>
-                <Link className="header__film-link" to="/movies">Фильмы</Link>
-                <Link className="header__film-link" to="/saved-movies">Сохранённые фильмы</Link>
+                <NavLink className="header__film-link" activeClassName="header__film-link_selected" to="/movies">Фильмы</NavLink>
+                <NavLink className="header__film-link" activeClassName="header__film-link_selected" to="/saved-movies">Сохранённые фильмы</NavLink>
               </>
             )
           }

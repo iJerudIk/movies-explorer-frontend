@@ -1,0 +1,11 @@
+.card-list__card-cross {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F9F9F9;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}

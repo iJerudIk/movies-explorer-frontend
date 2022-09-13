@@ -1,0 +1,8 @@
+.profile__button-submit_disabled {
+  background-color: #fff;
+  color: #000;
+}
+
+.auth__button-submit_disabled:hover {
+  opacity: 1;
+}
